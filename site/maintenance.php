@@ -1,38 +1,5 @@
 <?php
 session_start();
-require "connect.php";
-include("class\Site.php");
-include("class\Users.php");
-
-$site = new Site();
-
-$result = $site->checkSiteActive($db);
-
-if ($result == "N")
-	header("Location: http://localhost:31337/site/maintenance.php");
-
-
-if (isset($_SESSION['user']))
-{
-	$user = $_SESSION['user'];
-	$name = $_SESSION['name'];
-	if (isset($_SESSION['usertype']))
-	{
-		$usertype = $_SESSION['usertype'];
-	}
-	else
-	{
-		$usertype = "";
-	}
-	$userObj = new Users();
-	$permissions = $userObj->listPermissions($db, $user);
-}
-else 
-{
-	$user = "";
-	$name = "";	
-	$usertype = "";
-}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -75,30 +42,6 @@ else
 						<div id="fh5co-logo"><a href="index.php">Run4Fun<span>.</span></a></div>
 					</div>
 					<div class="col-xs-10 text-right menu-1">
-						<ul>
-							<!-- <li class="active"><a href="index.html">Home</a></li> -->
-							<li><a href="about.php">About</a></li>
-							<li class="has-dropdown">
-								<?php if (isset($permissions)) : ?>
-									<a href="#">Workouts</a>
-									<ul class="dropdown">
-										<?php
-										foreach ($permissions as $p) {
-											echo "<li><a href=" . $p['url'] . ">" . $p['name'] . "</a></li>";
-										}
-										?>
-									</ul>
-								<?php endif ?>
-							</li>
-							<li><a href="contact.php">Contact</a></li>
-							<?php if ($user === "") : ?> 
-								<li class=btn-cta><a href=login.php><span>Login</span></a></li>
-								<li class=btn-cta><a href=signup.html><span>Sign Up</span></a></li>
-							<?php else : ?>
-								<li class=btn-cta><span>Hi! <?= $name ?> </span></li>
-								<li class=btn-cta><a href=logout.php><span>Log out</span></a></li>
-							<?php endif ?>
-						</ul>
 					</div>
 				</div>
 				
@@ -113,8 +56,7 @@ else
 				<div class="col-md-6">
 					<div class="display-t">
 						<div class="display-tc animate-box" data-animate-effect="fadeIn">
-							<h1>Working hard is <strong>rewarding</strong></h1>
-							<p><a href="#" class="btn btn-primary btn-lg with-arrow">View Our Work</a></p>
+							<h1>Sorry site under <strong>maintenance</strong></h1>
 						</div>
 					</div>
 				</div>

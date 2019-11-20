@@ -146,11 +146,12 @@ else
           <option value="female" <?php echo $femaleselected ?>>Female</option>
           <option value="other" <?php echo $otherselected ?>>Other</option>
         </select>
-        <input type="text" class="sign-up-input" required pattern="\d{1,2}/\d{1,2}/\d{4}" name="birthdate" id="birthdate" value=<?php echo $birthdate . " " . $readonly ?>>
+        <input type="date" class="sign-up-input" required pattern="\d{1,2}/\d{1,2}/\d{4}" name="birthdate" id="birthdate" value=<?php echo $birthdate . " " . $readonly ?>>
         <input type="text" class="sign-up-input" name="weight" id="weight" value=<?php echo $weight ?>>
         <input type="text" class="sign-up-input" name="height" id="height" value=<?php echo $height ?>>
         <input type="text" class="sign-up-input" name="email" id="email" value=<?php echo $email . " " . $readonly?>>
         <input type="password" class="sign-up-input" name="password" id="password" value=<?php echo $password ?>>
+        <input type="password" class="sign-up-input" name="confirmPassword" id="confirmPassword" value=<?php echo $password ?>>
         <input type="button" name="command" value="Update!" class="sign-up-button" onclick="submitform(' <?php echo $userid ?> ')">
     </div>
   <?php endif ?>
@@ -158,6 +159,11 @@ else
 <script>
   function submitform(id)
   {
+    if (document.getElementById("password").value != document.getElementById("confirmPassword").value)
+    {
+      alert("Password doesn't match.");
+      return;
+    }
 		document.getElementById("userid").value = id;
 		document.getElementById("command").value = 'Updateuser';
 		document.edituser.action = "process_post.php";

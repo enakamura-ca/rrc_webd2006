@@ -123,7 +123,7 @@ else
 						<form class="sign-up" action="http://localhost:31337/site/process_post.php" method="post">
 							<h1 class="sign-up-text">Yay!! Let's record your workout!</h1>
 							<input type="hidden" name="workoutid" id="workoutid" value=<?= $workoutid ?>>
-							<label>Date:</label><input type="text" class="sign-up-input" placeholder="mm/dd/yyyy" name="dateCreated" id="dateCreated" value=<?= $dateCreated ?>>
+							<label>Date:</label><input type="date" class="sign-up-input" placeholder="date" name="dateCreated" id="dateCreated" value=<?= $dateCreated ?>>
 							<label>Duration:</label><input type="text" class="sign-up-input" placeholder="hh:mm" name="duration" id="duration" value=<?= $duration ?>>
 							<label>Distance:</label><input type="text" class="sign-up-input" placeholder="kilometers" name="distance" id="distance" value=<?= $distance ?>>
 							<input type="submit" name="command" value=<?php echo $button_value; ?> class="sign-up-button">

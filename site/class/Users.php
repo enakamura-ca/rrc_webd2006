@@ -115,7 +115,6 @@ class Users
 
         $bind_values = ['firstName' => $firstName,'lastName' => $lastName, 'genre' => $genre, 'birthdate' => $birthdate,'weight' => $weight, 'height' => $height, 'email' => $email, 'password' => $password, 'userType' => $usertype];
 
-        print_r($statement);
         $statement->execute($bind_values);
 
 
@@ -134,7 +133,7 @@ class Users
         $this->genre = $genre;
 
         $query  = "UPDATE users SET firstName = :firstName, lastName = :lastName, genre = :genre, birthdate = :birthdate,
-                    weight = :weight, height = :height, email = :email, password = :password WHERE userid = :userid";
+                    weight = :weight, height = :height, email = :email, password = :password WHERE userid = :userid ";
         $statement = $db->prepare($query);
 
         $bind_values = ['firstName' => $firstName,'lastName' => $lastName, 'genre' => $genre, 'birthdate' => $birthdate,
@@ -146,7 +145,8 @@ class Users
     }
 
     public function delete($db, $userid) {
-        $query  = "DELETE FROM users WHERE userid = :userid";
+
+        $query  = "UPDATE users SET active = 'N' WHERE userid = :userid";
         $statement = $db->prepare($query);
 
         $bind_values = ['userid' => $userid];
@@ -155,8 +155,52 @@ class Users
         return true;
     }
 
-    public function list($db, $userid = null) {
-        $query = "SELECT * FROM users" . (isset($userid)? " WHERE userid = " . $userid : " ");
+    public function list($db, $userType, $userid = null) {
+        if ($userType == "A")
+            $query = "SELECT * FROM users" . (isset($userid)? " WHERE userid = " . $userid : " ");
+        else
+            $query = "SELECT * FROM users" . (isset($userid)? " WHERE userid = " . $userid . " AND ": " WHERE ") . " active = 'Y'";
+        $statement = $db->prepare($query);
+        $statement->execute();
+        $record = $statement->fetchAll();
+        
+        return $record;
+    }
+ 
+    public function checkUser($db, $email, $password = null) {
+
+        $query = "SELECT * FROM users WHERE email = :email";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':email', $email,PDO::PARAM_STR);
+
+        $statement->execute();      
+
+        $rowcount = $statement->rowCount(); 
+        if ($rowcount > 0)
+        {
+            $record = $statement->fetch();
+            if ($record['active'] == "N")
+                return "inactive";
+
+            if ($record['password'] !== $password)
+                return "wrong";
+            else {
+                $userArray = array($record['userId'], $record['firstName'], $record['weight'], $record['userType']);
+                return $userArray;
+            }
+        }
+        else
+            return "new";    
+          
+    }
+
+    public function listPermissions($db, $userid) {
+        $query = "SELECT * ";
+        $query = $query . "FROM user_permission u,";
+        $query = $query . "object_permissions p ";
+        $query = $query . "WHERE u.idObjectPermission = p.id ";
+        $query = $query . "AND u.idUser = " . $userid;
+
         $statement = $db->prepare($query);
         $statement->execute();
         $record = $statement->fetchAll();
