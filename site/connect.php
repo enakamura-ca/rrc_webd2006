@@ -1,4 +1,5 @@
 <?php
+//Author: Edgar Nakamura
     define('DB_DSN','mysql:host=localhost;dbname=runforfun');
     define('DB_USER','run4fun');
     define('DB_PASS','Password01');
