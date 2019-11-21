@@ -1,15 +1,37 @@
 <?php
 session_start();
+require "connect.php";
+include("class\Site.php");
+include("class\Users.php");
+
+$site = new Site();
+
+$result = $site->checkSiteActive($db);
+
+if ($result == "N")
+	header("Location: http://localhost:31337/site/maintenance.php");
+
 
 if (isset($_SESSION['user']))
 {
 	$user = $_SESSION['user'];
 	$name = $_SESSION['name'];
+	if (isset($_SESSION['usertype']))
+	{
+		$usertype = $_SESSION['usertype'];
+	}
+	else
+	{
+		$usertype = "";
+	}
+	$userObj = new Users();
+	$permissions = $userObj->listPermissions($db, $user);
 }
 else 
 {
 	$user = "";
 	$name = "";	
+	$usertype = "";
 }
 
 ?>
@@ -63,11 +85,16 @@ else
 							<li><a href="about.php">About</a></li>
 							<li class="has-dropdown">
 								<a href="#">Workouts</a>
-								<ul class="dropdown">
-									<li><a href="work.php">Log Workout</a></li>
-									<li><a href="history.php">History</a></li>
-									<li><a href="#">Milestones</a></li>
-								</ul>
+								<?php if (isset($permissions)) : ?>
+									<a href="#">Workouts</a>
+									<ul class="dropdown">
+										<?php
+										foreach ($permissions as $p) {
+											echo "<li><a href=" . $p['url'] . ">" . $p['name'] . "</a></li>";
+										}
+										?>
+									</ul>
+								<?php endif ?>
 							</li>
 							<li><a href="contact.php">Contact</a></li>
 							<?php if ($user === "") : ?> 
