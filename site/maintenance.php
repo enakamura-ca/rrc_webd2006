@@ -1,4 +1,5 @@
 <?php
+//Author: Edgar Nakamura
 session_start();
 ?>
 <!DOCTYPE HTML>
