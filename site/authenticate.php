@@ -1,4 +1,5 @@
 <?php
+//Author: Edgar Nakamura
   define('ADMIN_LOGIN','run4fun');
   define('ADMIN_PASSWORD','Password01');
 
