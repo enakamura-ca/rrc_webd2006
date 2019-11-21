@@ -1,17 +1,38 @@
 <?php
 session_start();
+require "connect.php";
+include("class\Site.php");
+include("class\Users.php");
+
+$site = new Site();
+
+$result = $site->checkSiteActive($db);
+
+if ($result == "N")
+	header("Location: http://localhost:31337/site/maintenance.php");
+
 
 if (isset($_SESSION['user']))
 {
 	$user = $_SESSION['user'];
 	$name = $_SESSION['name'];
+	if (isset($_SESSION['usertype']))
+	{
+		$usertype = $_SESSION['usertype'];
+	}
+	else
+	{
+		$usertype = "";
+	}
+	$userObj = new Users();
+	$permissions = $userObj->listPermissions($db, $user);
 }
 else 
 {
 	$user = "";
 	$name = "";	
+	$usertype = "";
 }
-
 ?>
 <!DOCTYPE HTML>
 <html>
