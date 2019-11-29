@@ -106,6 +106,7 @@ class Users
         $this->height = $height;
         $this->email = $email;
         $this->birthdate = $birthdate;
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $this->password = $password;
         $this->usertype = $usertype;
         $this->genre = $genre;
@@ -113,10 +114,28 @@ class Users
         $query  = "INSERT INTO users (firstName, lastName, genre, birthdate, weight, height, email, password, userType) values (:firstName, :lastName, :genre, :birthdate, :weight, :height, :email, :password, :userType)";
         $statement = $db->prepare($query);
 
-        $bind_values = ['firstName' => $firstName,'lastName' => $lastName, 'genre' => $genre, 'birthdate' => $birthdate,'weight' => $weight, 'height' => $height, 'email' => $email, 'password' => $password, 'userType' => $usertype];
+        $bind_values = ['firstName' => $firstName,'lastName' => $lastName, 'genre' => $genre, 'birthdate' => $birthdate,'weight' => $weight, 'height' => $height, 'email' => $email, 'password' => $hashed_password, 'userType' => $usertype];
 
         $statement->execute($bind_values);
 
+        $userid = $this->checkUser($db, $email, $password);
+        $result = $this->createPermission($db,$userid[0]);
+
+        return true;
+    }
+
+    public function createPermission($db, $userid) {
+        $query  = "INSERT INTO user_permission (idUser, idObjectPermission) values (" . $userid . ", 1)";
+        $statement = $db->prepare($query);
+        $statement->execute();
+
+        $query  = "INSERT INTO user_permission (idUser, idObjectPermission) values (" . $userid . ", 2)";
+        $statement = $db->prepare($query);
+        $statement->execute();
+
+        $query  = "INSERT INTO user_permission (idUser, idObjectPermission) values (" . $userid . ", 3)";
+        $statement = $db->prepare($query);
+        $statement->execute();
 
         return true;
     }
@@ -128,7 +147,8 @@ class Users
         $this->height = $height;
         $this->email = $email;
         $this->birthdate = $birthdate;
-        $this->password = $password;
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $this->password = $hashed_password;
         $this->userid = $userid;
         $this->genre = $genre;
 
@@ -137,7 +157,7 @@ class Users
         $statement = $db->prepare($query);
 
         $bind_values = ['firstName' => $firstName,'lastName' => $lastName, 'genre' => $genre, 'birthdate' => $birthdate,
-        'weight' => $weight, 'height' => $height, 'email' => $email, 'password' => $password, 'userid' => $userid];
+        'weight' => $weight, 'height' => $height, 'email' => $email, 'password' => $hashed_password, 'userid' => $userid];
 
         $statement->execute($bind_values);
 
@@ -166,7 +186,17 @@ class Users
         
         return $record;
     }
- 
+
+    public function select($db, $email) {
+        $query = "SELECT * FROM users WHERE email = " . $email;
+        $statement = $db->prepare($query);
+        $statement->execute();
+        $record = $statement->fetchAll();
+        echo $query;
+
+        return $record;
+    }
+
     public function checkUser($db, $email, $password = null) {
 
         $query = "SELECT * FROM users WHERE email = :email";
@@ -182,7 +212,7 @@ class Users
             if ($record['active'] == "N")
                 return "inactive";
 
-            if ($record['password'] !== $password)
+            if (!password_verify($password, $record['password']))
                 return "wrong";
             else {
                 $userArray = array($record['userId'], $record['firstName'], $record['weight'], $record['userType']);

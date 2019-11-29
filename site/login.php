@@ -1,5 +1,4 @@
 <?php
-//Author: Edgar Nakamura
 require 'connect.php';
 include("class/Users.php");
 session_start();

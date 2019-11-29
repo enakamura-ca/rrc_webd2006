@@ -1,6 +1,5 @@
 
 <!DOCTYPE html>
-<!-- Author: Edgar Nakamura -->
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -26,7 +25,8 @@
     <input type="password" class="sign-up-input" placeholder="Choose a password" name="password" id="password">
     <input type="password" class="sign-up-input" placeholder="Confirm the password" name="confirmPassword" id="confirmPassword">
     <input type="hidden" value="U" name="userType" id="userType">
-    <input type="button" name="command" value="Register" class="sign-up-button" onclick="submitform()">
+    <input type="button" name="btnSubmit" value="Register" class="sign-up-button" onclick="submitform()">
+    <input type="hidden" name="command" value="Register">
   </form>
 <script>
   function submitform()
@@ -38,6 +38,6 @@
     }
 		document.signup.submit();
   }
-</script>
+</script> 
 </body>
 </html>
