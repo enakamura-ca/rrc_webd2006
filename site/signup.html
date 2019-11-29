@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-  <form class="sign-up" action="http://localhost:31337/site/process_post.php" method="post">
+  <form class="sign-up" name="signup" action="http://localhost:31337/site/process_post.php" method="post">
     <h1 class="sign-up-title">Sign up in seconds</h1>
     <input type="text" class="sign-up-input" name="firstName" id="firstName" placeholder="First Name" autofocus>
     <input type="text" class="sign-up-input" name="lastName" id="lastName" placeholder="Last Name">
@@ -18,14 +18,26 @@
       <option value="female">Female</option>
       <option value="other">Other</option>
     </select>
-    <input type="text" class="sign-up-input" placeholder="mm/dd/yyyy" required pattern="\d{1,2}/\d{1,2}/\d{4}" name="birthdate" id="birthdate">
+    <input type="date" class="sign-up-input" placeholder="birthdate" required pattern="\d{1,2}/\d{1,2}/\d{4}" name="birthdate" id="birthdate">
     <input type="text" class="sign-up-input" placeholder="Weight" name="weight" id="weight">
     <input type="text" class="sign-up-input" placeholder="Height" name="height" id="height">
     <input type="text" class="sign-up-input" placeholder="Email" name="email" id="email">
     <input type="password" class="sign-up-input" placeholder="Choose a password" name="password" id="password">
+    <input type="password" class="sign-up-input" placeholder="Confirm the password" name="confirmPassword" id="confirmPassword">
     <input type="hidden" value="U" name="userType" id="userType">
-    <input type="submit" name="command" value="Register" class="sign-up-button">
+    <input type="button" name="btnSubmit" value="Register" class="sign-up-button" onclick="submitform()">
+    <input type="hidden" name="command" value="Register">
   </form>
-  
+<script>
+  function submitform()
+  {
+    if (document.getElementById("password").value != document.getElementById("confirmPassword").value)
+    {
+      alert("Password doesn't match.");
+      return;
+    }
+		document.signup.submit();
+  }
+</script> 
 </body>
 </html>

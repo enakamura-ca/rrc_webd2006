@@ -338,7 +338,7 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 .fh5co-cover {
-  height: 800px;
+  height: 1000px;
   background-size: cover;
   background-position: top center;
   background-repeat: no-repeat;
@@ -1424,7 +1424,7 @@ h1, h2, h3, h4, h5, h6, figure {
   left: 0px;
   top: 0px;
   width: 100%;
-  height: 100%;
+  height: 80%;
   z-index: 9999;
   background: url(../images/loader.gif) center no-repeat #fff;
 }

@@ -1,5 +1,6 @@
 <?php
 require 'connect.php';
+include("class/Users.php");
 session_start();
 
 $error_occured = "";
@@ -11,36 +12,26 @@ if ($_POST)
 
   $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 
-  $query = "SELECT * FROM users WHERE email = :email";
-  $statement = $db->prepare($query);
-  $statement->bindValue(':email', $email,PDO::PARAM_STR);
-  $statement->execute();
+  $user = new Users();
 
-  $rowcount = $statement->rowCount(); 
-  if ($rowcount > 0)
+  $result = $user->checkUser($db, $email, $password);
+
+  if (!is_array($result))
   {
-    $record = $statement->fetch();
-    if ($record['password'] !== $password)
-    {
-      $error_occured = "<br><h2 class=sign-up-title>Hmm, something wrong with your password. Try again.</h2>";
-    }
-    else
-    {
-      $_SESSION['user'] = $record['userId'];
-      $_SESSION['name'] = $record['firstName'];
-      $_SESSION['weight'] = $record['weight'];
-      $_SESSION['usertype'] = $record['userType'];
-      //echo print_r($_SESSION);
-
-      header("Location: http://localhost:31337/site/index.php");
-    }
+    $error_occured = "<br><h2 class=sign-up-title>Account Inactive.</h2>";
   }
-  else 
+  else
   {
-    $error_occured = "<br><h2 class=sign-up-titl>Hmm, something wrong with your email. Try again.</h2>";
+
+    $_SESSION['user'] = $result[0];
+    $_SESSION['name'] = $result[1];
+    $_SESSION['weight'] = $result[2];
+    $_SESSION['usertype'] = $result[3];
+    //echo print_r($_SESSION);
+
+    header("Location: http://localhost:31337/site/index.php");
   }
   $db = null;
-
 }
 ?>
 <!DOCTYPE html>

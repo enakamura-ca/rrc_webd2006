@@ -1,17 +1,5 @@
 <?php
 session_start();
-
-if (isset($_SESSION['user']))
-{
-	$user = $_SESSION['user'];
-	$name = $_SESSION['name'];
-}
-else 
-{
-	$user = "";
-	$name = "";	
-}
-
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -39,10 +27,6 @@ else
 
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
-	<!-- FOR IE9 below -->
-	<!--[if lt IE 9]>
-	<script src="js/respond.min.js"></script>
-	<![endif]-->
 
 	</head>
 	<body>
@@ -58,26 +42,6 @@ else
 						<div id="fh5co-logo"><a href="index.php">Run4Fun<span>.</span></a></div>
 					</div>
 					<div class="col-xs-10 text-right menu-1">
-						<ul>
-							<!-- <li class="active"><a href="index.html">Home</a></li> -->
-							<li><a href="about.php">About</a></li>
-							<li class="has-dropdown">
-								<a href="#">Workouts</a>
-								<ul class="dropdown">
-									<li><a href="work.php">Log Workout</a></li>
-									<li><a href="history.php">History</a></li>
-									<li><a href="#">Milestones</a></li>
-								</ul>
-							</li>
-							<li><a href="contact.php">Contact</a></li>
-							<?php if ($user === "") : ?> 
-								<li class=btn-cta><a href=login.php><span>Login</span></a></li>
-								<li class=btn-cta><a href=signup.html><span>Sign Up</span></a></li>
-							<?php else : ?>
-								<li class=btn-cta><span>Hi! <?= $name ?> </span></li>
-								<li class=btn-cta><a href=logout.php><span>Log out</span></a></li>
-							<?php endif ?>
-						</ul>
 					</div>
 				</div>
 				
@@ -85,52 +49,112 @@ else
 		</div>
 	</nav>
 
-	<header id="fh5co-header" class="fh5co-cover fh5co-cover-sm" role="banner" style="background-image:url(images/img_bg_2.jpg);" data-stellar-background-ratio="0.5">
+	<header id="fh5co-header" class="fh5co-cover" role="banner" style="background-image:url(images/img_bg_1.jpg);" data-stellar-background-ratio="0.5">
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row">
-				<div class="col-md-8 col-md-offset-2 text-center">
+				<div class="col-md-6">
 					<div class="display-t">
 						<div class="display-tc animate-box" data-animate-effect="fadeIn">
-							<h1>About Us</h1>
+							<h1>Sorry site under <strong>maintenance</strong></h1>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</header>
-	
-	<div id="fh5co-about">
+
+	<div id="fh5co-services" class="fh5co-bg-section">
 		<div class="container">
-			<div class="about-content">
-				<div class="row animate-box">
-					<div class="col-md-6 col-md-push-6">
-						<img class="img-responsive" src="images/img_bg_1.jpg" alt="about">
-					</div>
-					<div class="col-md-6 col-md-pull-6">
-						<div class="desc">
-							<h3>Company</h3>
-							<p>Thinking about the increasing number of people looking for a healthy life, we founded the Run For Fun to help people to get access to tools used by athletes with a nice interface and usability</p>
-							<p>Running an activity very popular, cheaper and accessible to mostly of people. Our company saw an opportunity to enter into this marketing creating an application to track the performance of the workouts easily and providing reports using a motivational approach.</p>
-						</div>
-						<div class="desc">
-							<h3>Mission &amp; Vission</h3>
-							<p>Make the sport accessible to everyone.</p>
-						</div>
-					</div>
-				</div>
-			</div>
 			<div class="row animate-box">
 				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-					<h2>Meet Our Team</h2>
-					<p>Edgar Nakamura - CEO and Finance Diretor</p>
-					<p>Joca Silvestein - IT Diretor</p>
-					<p>Stella Nice - Marketing Diretor</p>
-					<p>Lady Murphy - Customer Service Manager</p>
+					<h2>How it Works</h2>
+					<p>Ease peasy. First tell us about your actual condition, weight, height, etc. And then start to log your workout.</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="iphone">
+						<img class="img-responsive" src="images/iphone.png" alt="iphone">
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="row services-inner">
+						<div class="col-md-12 col-sm-12">
+							<div class="feature-center animate-box" data-animate-effect="fadeIn">
+								<span class="icon">
+									<i class="icon-image"></i>
+								</span>
+								<h3>Retina Ready</h3>
+								<p>Anywhere. Reach our app in your mobile device.</p>
+							</div>
+						</div>
+						<div class="col-md-12 col-sm-12">
+							<div class="feature-center animate-box" data-animate-effect="fadeIn">
+								<span class="icon">
+									<i class="icon-laptop"></i>
+								</span>
+								<h3>Fully Responsive</h3>
+								<p>We create this app for you, simple and quick.</p>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	
+	<div id="fh5co-testimonial" class="fh5co-bg-section">
+		<div class="container">
+			<div class="row animate-box">
+				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+					<h2>Happy Clients</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1">
+					<div class="row animate-box">
+						<div class="owl-carousel owl-carousel-fullwidth">
+							<div class="item">
+								<div class="testimony-slide active text-center">
+									<figure>
+										<img src="images/person_1.jpg" alt="user">
+									</figure>
+									<span>Jean Doe, via <a href="#" class="twitter">Twitter</a></span>
+									<blockquote>
+										<p>&ldquo;At first, I have doubt that a simple app could help me to get in shape. Now, I am addicted to run, just because of it. Amazing!&rdquo;</p>
+									</blockquote>
+								</div>
+							</div>
+							<div class="item">
+								<div class="testimony-slide active text-center">
+									<figure>
+										<img src="images/person_2.jpg" alt="user">
+									</figure>
+									<span>Fredegundo Anastacia, via <a href="#" class="twitter">Twitter</a></span>
+									<blockquote>
+										<p>&ldquo;Persistence is the key. And this app is my coach. Great features to push us more. My wife also liked my new shape!&rdquo;</p>
+									</blockquote>
+								</div>
+							</div>
+							<div class="item">
+								<div class="testimony-slide active text-center">
+									<figure>
+										<img src="images/person_3.jpg" alt="user">
+									</figure>
+									<span>Joan Joana, via <a href="#" class="facebook">Facebook</a></span>
+									<blockquote>
+										<p>&ldquo;Thanks Run For Fun! You guys gave a new life!&rdquo;</p>
+									</blockquote>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 
 	<div id="fh5co-started">
 		<div class="container">
@@ -147,6 +171,7 @@ else
 			</div>
 		</div>
 	</div>
+
 	<footer id="fh5co-footer" role="contentinfo">
 		<div class="container">
 			<div class="row copyright">

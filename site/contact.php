@@ -108,6 +108,7 @@ else
 					<div class="fh5co-contact-info">
 						<h3>Contact Information</h3>
 						<ul>
+						<iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d24184.01457075975!2d-73.99927472136511!3d40.739985443382785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1s198%20West%2021th%20Street%2C%20ny!5e0!3m2!1sen!2sca!4v1574985240761!5m2!1sen!2sca" width="330" height="250" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
 							<li class="address">198 West 21th Street, <br> Suite 721 New York NY 10016</li>
 							<li class="phone"><a href="tel://1234567920">+ 1235 2355 98</a></li>
 							<li class="email"><a href="mailto:info@runforfun.com">info@runforfun.com</a></li>
